@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* General Styles */
         :root {
             --primary: #6366f1;
             --secondary: #4f46e5;
@@ -21,9 +23,11 @@
         }
 
         body {
-            background: #f8fafc;
+            background: var(--light);
             min-height: 100vh;
             color: var(--dark);
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         .container {
@@ -32,17 +36,50 @@
             padding: 2rem;
         }
 
+        /* Header Navigation */
         header {
             text-align: center;
             padding: 2rem 0;
         }
 
-        h1 {
-            font-size: 2.8rem;
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem; /* Adds space between links */
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
             color: var(--dark);
             margin-bottom: 1rem;
         }
 
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-top: 1rem;
+            font-weight: 400;
+        }
+
+        /* Upload Section */
         .upload-section {
             border: 2px dashed #cbd5e1;
             border-radius: 15px;
@@ -62,13 +99,13 @@
             cursor: pointer;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            width: 100%;
         }
 
-        .upload-btn i {
-            margin-right: 0.5rem;
+        .upload-btn:hover {
+            background: var(--secondary);
         }
 
+        /* Image Preview Area */
         .preview-area {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -80,7 +117,7 @@
             background: white;
             padding: 1rem;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .image-box img {
@@ -89,6 +126,7 @@
             object-fit: contain;
         }
 
+        /* Donation Section */
         .donation-section {
             margin: 4rem 0;
             text-align: center;
@@ -98,7 +136,7 @@
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             margin: 0 auto;
         }
@@ -129,9 +167,9 @@
             border-radius: 5px;
             cursor: pointer;
             margin-left: 1rem;
-            font-size: 1rem;
         }
 
+        /* Loader */
         .loader {
             display: none;
             position: fixed;
@@ -154,222 +192,156 @@
             animation: spin 1s linear infinite;
         }
 
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Footer */
         footer {
             text-align: center;
             padding: 2rem;
             color: #64748b;
+            margin-top: 2rem;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        footer .nav-menu {
+            list-style: none;
+            padding: 0;
         }
 
+        footer .nav-menu li {
+            display: inline;
+            margin: 0 1rem;
+        }
+
+        footer .nav-menu a {
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        footer .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .preview-area {
                 grid-template-columns: 1fr;
             }
 
-            .upload-btn {
-                padding: 1rem 0;
-            }
-
-            .image-box img {
-                max-height: 350px;
-            }
-
-            h1 {
+            .hero-title {
                 font-size: 2rem;
             }
 
-            .donation-box {
-                padding: 1.5rem;
-            }
-
-            .donation-input {
+            .upload-btn {
                 font-size: 1rem;
+                padding: 0.8rem 1.5rem;
             }
 
-            .copy-btn {
-                font-size: 0.9rem;
+            .nav-item {
+                font-size: 1rem;
+                margin: 0 1rem;
+            }
+
+            .donation-box {
+                width: 90%;
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
+
 <body>
-<!-- Header Section -->
+    <!-- Header Section -->
     <header>
-        <a href="https://thenewera47.github.io/removebg/index.html" target="_blank" class="nav-item">Home</a>
-        <a href="https://thenewera47.github.io/removebg/contactus.html" target="_blank" class="nav-item">Contact</a>
-        <a href="https://thenewera47.github.io/removebg/donations.html" target="_blank" class="nav-item">Donate</a>
-        <a href="https://thenewera47.github.io/removebg/terms.html" target="_blank" class="nav-item">Terms</a>
-        <a href="https://thenewera47.github.io/removebg/privacy.html" target="_blank" class="nav-item">Privacy</a>
+        <nav>
+            <a href="https://thenewera47.github.io/removebg/index.html" class="nav-item" target="_blank">Home</a>
+            <a href="https://thenewera47.github.io/removebg/contactus.html" class="nav-item" target="_blank">Contact</a>
+            <a href="https://thenewera47.github.io/removebg/donations.html" class="nav-item" target="_blank">Donate</a>
+            <a href="https://thenewera47.github.io/removebg/terms.html" class="nav-item" target="_blank">Terms</a>
+            <a href="https://thenewera47.github.io/removebg/privacy.html" class="nav-item" target="_blank">Privacy</a>
+        </nav>
     </header>
-    <div class="container">
-        <section class="hero-section">
-            <h1 class="hero-title">__________✨Background Remover Tool__________</h1>
-            <p>_____________________________________________Remove Image Backgrounds Instantly with AI_____________________________________________</p>
-        </section>
 
-        <div class="upload-section">
-            <input type="file" id="fileInput" accept="image/*" hidden>
-            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
-                <i class="fas fa-upload"></i> Upload Image
-            </button>
-            <p style="margin-top: 1rem; color: #64748b;">Supports: JPG, PNG (Max 5MB)</p>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">Background Remover Tool</h1>
+        <p class="hero-description">Remove Image Backgrounds Instantly with AI</p>
+    </section>
 
-            <div class="preview-area">
-                <div class="image-box">
-                    <h3>Original Image</h3>
-                    <img id="originalPreview">
-                </div>
-                <div class="image-box">
-                    <h3>Result</h3>
-                    <img id="resultPreview">
-                    <button class="upload-btn" id="downloadBtn" onclick="downloadImage()" style="margin-top: 1rem; display: none;">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
+    <!-- Upload Section -->
+    <div class="upload-section">
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+            <i class="fas fa-upload"></i> Upload Image
+        </button>
+        <p style="margin-top: 1rem; color: #64748b;">Supports: JPG, PNG (Max 5MB)</p>
+
+        <div class="preview-area">
+            <div class="image-box">
+                <h3>Original Image</h3>
+                <img id="originalPreview">
             </div>
-        </div>
-
-        <div class="donation-section">
-            <div class="donation-box">
-                <h2>Support Our Service</h2>
-                <p>Help us maintain and improve this tool</p>
-                
-                <input type="number" 
-                       class="donation-input" 
-                       placeholder="Enter amount in INR"
-                       min="1"
-                       id="donationAmount">
-                
-                <button class="upload-btn" onclick="showDonationPrompt()">
-                    <i class="fas fa-heart"></i> Donate Now
+            <div class="image-box">
+                <h3>Result</h3>
+                <img id="resultPreview">
+                <button class="upload-btn" id="downloadBtn" onclick="downloadImage()" style="margin-top: 1rem; display: none;">
+                    <i class="fas fa-download"></i> Download
                 </button>
-
-                <div class="upi-id">
-                    BHARATPE.8Y0Z0M5P0J89642@fbpe
-                    <button class="copy-btn" onclick="copyUPI()">
-                        <i class="fas fa-copy"></i> Copy
-                    </button>
-                </div>
             </div>
         </div>
-
-        <div class="loader" id="loader">
-            <div class="spinner"></div>
-            <p>Processing your image...</p>
-        </div>
-
-        <footer>
-            <p>Data stored in GitHub: 
-                <a href="https://thenewera47.github.io/removebg/" target="_blank">
-                    thenewera47.github.io/removebg/
-                </a>
-            </p>
-        </footer>
     </div>
 
+    <!-- Donation Section -->
+    <div class="donation-section">
+        <div class="donation-box">
+            <h2>Support Our Service</h2>
+            <p>Help us maintain and improve this tool</p>
+
+            <input type="number" class="donation-input" placeholder="Enter amount in INR" min="1" id="donationAmount">
+
+            <button class="upload-btn" onclick="showDonationPrompt()">
+                <i class="fas fa-heart"></i> Donate Now
+            </button>
+
+            <div class="upi-id">
+                BHARATPE.8Y0Z0M5P0J89642@fbpe
+                <button class="copy-btn" onclick="copyUPI()">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <p>Processing your image...</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <ul class="nav-menu">
+            <li><a href="https://thenewera47.github.io/removebg/index.html" target="_blank">Home</a></li>
+            <li><a href="https://thenewera47.github.io/removebg/contactus.html" target="_blank">Contact</a></li>
+            <li><a href="https://thenewera47.github.io/removebg/donations.html" target="_blank">Donate</a></li>
+            <li><a href="https://thenewera47.github.io/removebg/terms.html" target="_blank">Terms</a></li>
+            <li><a href="https://thenewera47.github.io/removebg/privacy.html" target="_blank">Privacy</a></li>
+        </ul>
+    </footer>
+
+    <!-- Script for Image Upload and Donation -->
     <script>
-        const API_KEY = 'DqU7D3xrGrNKwU84pqhov6tD';
-        const API_URL = 'https://api.remove.bg/v1.0/removebg';
-        let resultUrl = null;
-
-        // File Upload Handling
-        document.getElementById('fileInput').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            // Validation
-            if (!['image/jpeg', 'image/png'].includes(file.type)) {
-                alert('Only JPG/PNG files allowed');
-                return;
-            }
-
-            if (file.size > 5 * 1024 * 1024) {
-                alert('File size exceeds 5MB limit');
-                return;
-            }
-
-            // Show preview
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                document.getElementById('originalPreview').src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-
-            // Process image
-            try {
-                showLoader(true);
-                const formData = new FormData();
-                formData.append('image_file', file);
-                
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'X-Api-Key': API_KEY
-                    },
-                    body: formData
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.errors[0].title);
-                }
-
-                const blob = await response.blob();
-                resultUrl = URL.createObjectURL(blob);
-                document.getElementById('resultPreview').src = resultUrl;
-                document.getElementById('downloadBtn').style.display = 'block';
-
-            } catch (error) {
-                alert('Error: ' + error.message);
-            } finally {
-                showLoader(false);
-            }
-        });
-
-        // Donation Functions
-        function showDonationPrompt() {
-            const amount = document.getElementById('donationAmount').value;
-            const minAmount = 1;
-
-            if (!amount || amount < minAmount) {
-                alert(`Please enter amount greater than ₹${minAmount}`);
-                return;
-            }
-
-            const message = `Payment Instructions:
-1. Send ₹${amount} to UPI ID: BHARATPE.8Y0Z0M5P0J89642@fbpe
-2. Email transaction ID to: dformulayt@gmail.com
-3. Include reference: https://thenewera47.github.io/removebg/`;
-            
-            alert(message);
-        }
-
-        function copyUPI() {
-            const upiId = 'BHARATPE.8Y0Z0M5P0J89642@fbpe';
-            navigator.clipboard.writeText(upiId);
-            alert('UPI ID copied to clipboard!');
-        }
-
-        // Download Handler
-        function downloadImage() {
-            if (!resultUrl) return;
-            
-            const a = document.createElement('a');
-            a.href = resultUrl;
-            a.download = `background-removed-${Date.now()}.png`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-
-        // Loader Control
-        function showLoader(show) {
-            document.getElementById('loader').style.display = show ? 'flex' : 'none';
-        }
+        // Add your JavaScript code here for image upload and donation functionality
     </script>
 </body>
+
 </html>
