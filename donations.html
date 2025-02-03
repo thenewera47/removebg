@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Page - Thank You</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        p {
+            text-align: center;
+            font-size: 18px;
+        }
+        .upi-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .upi-id {
+            font-size: 20px;
+            color: #1A73E8;
+            font-weight: bold;
+        }
+        .button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .comment-section {
+            margin-top: 30px;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .comment-section input[type="file"] {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thank You for Your Support!</h1>
+        <p>We appreciate your generosity in supporting our cause. Your donation helps us to continue doing good work!</p>
+        
+        <div class="upi-section">
+            <h2>Donate via BharatPe</h2>
+            <p>Use the following UPI ID to send money:</p>
+            <p class="upi-id">BHARATPE.8Y0Z0M5P0J89642@fbpe</p>
+            <button class="button" onclick="copyUPI()">Copy UPI ID</button>
+            <br><br>
+            <button class="button" onclick="sendMoney()">Send Money</button>
+        </div>
+        
+        <div class="comment-section">
+            <h3>Leave a Comment and Upload Your Donation Receipt</h3>
+            <form id="comment-form">
+                <textarea name="comment" placeholder="Your comment..." rows="4" style="width: 100%;"></textarea>
+                <br><br>
+                <input type="file" name="donation-image" accept="image/*">
+                <br><br>
+                <button type="submit" class="button">Submit Comment</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Function to copy UPI ID to clipboard
+        function copyUPI() {
+            const upiID = document.querySelector('.upi-id').textContent;
+            const textArea = document.createElement('textarea');
+            textArea.value = upiID;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('UPI ID copied to clipboard!');
+        }
+
+        // Function to handle the "Send Money" button (redirecting to UPI payment link)
+        function sendMoney() {
+            const upiLink = "upi://pay?pa=BHARATPE.8Y0Z0M5P0J89642@fbpe&pn=Donation&mc=1234&tid=5678&amount=10&currency=INR&url=https://www.thenewera47.com";
+            window.location.href = upiLink;
+        }
+
+        // Form submission handling
+        document.getElementById('comment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Thank you for your comment and donation receipt!');
+        });
+    </script>
+</body>
+</html>
