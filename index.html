@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelWizard - AI Background Removal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Updated Pricing Section */
+        .pricing-section {
+            padding: 6rem 0;
+            background: #f9fafb;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .recommended {
+            border: 2px solid #6366f1;
+            background: #f8f9ff;
+        }
+
+        .recommended-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #6366f1;
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 1rem 0;
+        }
+
+        .price-amount span {
+            font-size: 1rem;
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        .price-features {
+            list-style: none;
+            margin: 2rem 0;
+            padding: 0;
+        }
+
+        .price-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #4b5563;
+        }
+
+        .price-features i {
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: #6366f1;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pricing-btn:hover {
+            background: #4f46e5;
+        }
+
+        .recommended .pricing-btn {
+            background: #10b981;
+        }
+
+        .recommended .pricing-btn:hover {
+            background: #059669;
+        }
+
+        .price-details {
+            text-align: center;
+            color: #6b7280;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation remains same -->
+
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 1rem;">Transparent Pricing</h2>
+            <p class="hero-text" style="text-align: center; margin-bottom: 3rem;">No hidden fees - choose the perfect plan for your needs</p>
+
+            <div class="pricing-grid">
+                <!-- Free Tier -->
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="price-amount">
+                        $0<span>/mo</span>
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> 50 images/mo</li>
+                        <li><i class="fas fa-check"></i> 720px resolution</li>
+                        <li><i class="fas fa-check"></i> Basic support</li>
+                        <li><i class="fas fa-times" style="color: #ef4444;"></i> Commercial use</li>
+                    </ul>
+                    <button class="pricing-btn">Get Started</button>
+                    <p class="price-details">Perfect for testing</p>
+                </div>
+
+                <!-- Basic Tier -->
+                <div class="pricing-card">
+                    <h3>Basic</h3>
+                    <div class="price-amount">
+                        $10<span>/mo</span>
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> 500 images/mo</li>
+                        <li><i class="fas fa-check"></i> 1080px resolution</li>
+                        <li><i class="fas fa-check"></i> Email support</li>
+                        <li><i class="fas fa-check"></i> Commercial license</li>
+                    </ul>
+                    <button class="pricing-btn">Choose Basic</button>
+                    <p class="price-details">Great for individuals</p>
+                </div>
+
+                <!-- Pro Tier (Recommended) -->
+                <div class="pricing-card recommended">
+                    <div class="recommended-badge">Most Popular</div>
+                    <h3>Pro</h3>
+                    <div class="price-amount">
+                        $20<span>/mo</span>
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> 2000 images/mo</li>
+                        <li><i class="fas fa-check"></i> 4K resolution</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> API Access</li>
+                    </ul>
+                    <button class="pricing-btn">Go Pro</button>
+                    <p class="price-details">Best for professionals</p>
+                </div>
+
+                <!-- Business Tier -->
+                <div class="pricing-card">
+                    <h3>Business</h3>
+                    <div class="price-amount">
+                        $30<span>/mo</span>
+                    </div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> 5000 images/mo</li>
+                        <li><i class="fas fa-check"></i> 4K + Retina</li>
+                        <li><i class="fas fa-check"></i> 24/7 support</li>
+                        <li><i class="fas fa-check"></i> Bulk processing</li>
+                    </ul>
+                    <button class="pricing-btn">Contact Sales</button>
+                    <p class="price-details">For teams & agencies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // API Configuration (already included in previous code)
+        const API_KEY = 'DqU7D3xrGrNKwU84pqhov6tD';
+        const API_URL = 'https://api.bgremoval.com/v1/remove';
+    </script>
+</body>
+</html>
