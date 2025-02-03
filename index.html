@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background Remover Tool - Instant AI-Powered Background Removal</title>
+    <title>Background Remover Tool</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -44,79 +44,6 @@
             margin-bottom: 1rem;
         }
 
-        /* Pricing Section */
-        .pricing-section {
-            padding: 3rem 0;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .pricing-card {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: var(--accent);
-            color: white;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .price-amount {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 1rem 0;
-        }
-
-        .price-features {
-            list-style: none;
-            margin: 1.5rem 0;
-            padding: 0;
-        }
-
-        .price-features li {
-            padding: 8px 0;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .upi-btn {
-            background: var(--primary);
-            color: white;
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .upi-btn:hover {
-            background: var(--secondary);
-        }
-
-        /* Upload Section */
         .upload-section {
             border: 2px dashed #cbd5e1;
             border-radius: 15px;
@@ -127,35 +54,79 @@
             transition: all 0.3s ease;
         }
 
+        .upload-btn {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
         .preview-area {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 2rem;
             margin-top: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
         }
 
         .image-box {
-            flex: 1;
-            min-width: 300px;
             background: white;
             padding: 1rem;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .download-btn {
-            background: var(--accent);
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 1rem;
-            display: none;
+        .image-box img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
         }
 
-        /* Loader and Notifications */
+        .donation-section {
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .donation-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .donation-input {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .upi-id {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f1f5f9;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+
+        .copy-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+
         .loader {
             display: none;
             position: fixed;
@@ -178,9 +149,25 @@
             animation: spin 1s linear infinite;
         }
 
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+        }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .preview-area {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -188,75 +175,12 @@
     <div class="container">
         <header>
             <h1>Background Remover Tool</h1>
-            <p>Professional AI Background Removal in Seconds</p>
+            <p>Instant AI-Powered Background Removal</p>
         </header>
 
-        <!-- Pricing Section -->
-        <section class="pricing-section">
-            <h2>Choose Your Plan</h2>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="price-amount">₹0</div>
-                    <h3>Free Trial</h3>
-                    <ul class="price-features">
-                        <li><i class="fas fa-check"></i> 5 Images/Month</li>
-                        <li><i class="fas fa-check"></i> 720px Resolution</li>
-                        <li><i class="fas fa-times"></i> Commercial Use</li>
-                    </ul>
-                    <button class="upi-btn" onclick="showUPI('free')">Start Free</button>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="popular-badge">Most Popular</div>
-                    <div class="price-amount">₹100</div>
-                    <h3>Basic Plan</h3>
-                    <ul class="price-features">
-                        <li><i class="fas fa-check"></i> 50 Images/Month</li>
-                        <li><i class="fas fa-check"></i> 1080p Resolution</li>
-                        <li><i class="fas fa-check"></i> Personal Use</li>
-                    </ul>
-                    <button class="upi-btn" onclick="showUPI(100)">Buy Now</button>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="price-amount">₹299</div>
-                    <h3>Pro Plan</h3>
-                    <ul class="price-features">
-                        <li><i class="fas fa-check"></i> 200 Images/Month</li>
-                        <li><i class="fas fa-check"></i> 4K Resolution</li>
-                        <li><i class="fas fa-check"></i> Commercial License</li>
-                    </ul>
-                    <button class="upi-btn" onclick="showUPI(299)">Buy Now</button>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="price-amount">₹599</div>
-                    <h3>Business Plan</h3>
-                    <ul class="price-features">
-                        <li><i class="fas fa-check"></i> 500 Images/Month</li>
-                        <li><i class="fas fa-check"></i> Priority Processing</li>
-                        <li><i class="fas fa-check"></i> Team Access</li>
-                    </ul>
-                    <button class="upi-btn" onclick="showUPI(599)">Buy Now</button>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="price-amount">₹1199</div>
-                    <h3>Enterprise Plan</h3>
-                    <ul class="price-features">
-                        <li><i class="fas fa-check"></i> Unlimited Images</li>
-                        <li><i class="fas fa-check"></i> 24/7 Support</li>
-                        <li><i class="fas fa-check"></i> API Access</li>
-                    </ul>
-                    <button class="upi-btn" onclick="showUPI(1199)">Contact Sales</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Upload Section -->
         <div class="upload-section">
             <input type="file" id="fileInput" accept="image/*" hidden>
-            <button class="upi-btn" onclick="document.getElementById('fileInput').click()" style="max-width: 300px;">
+            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
                 <i class="fas fa-upload"></i> Upload Image
             </button>
             <p style="margin-top: 1rem; color: #64748b;">Supports: JPG, PNG (Max 5MB)</p>
@@ -264,13 +188,37 @@
             <div class="preview-area">
                 <div class="image-box">
                     <h3>Original Image</h3>
-                    <img id="originalPreview" style="max-height: 400px;">
+                    <img id="originalPreview">
                 </div>
                 <div class="image-box">
                     <h3>Result</h3>
-                    <img id="resultPreview" style="max-height: 400px;">
-                    <button class="download-btn" id="downloadBtn" onclick="downloadImage()">
+                    <img id="resultPreview">
+                    <button class="upload-btn" id="downloadBtn" onclick="downloadImage()" style="margin-top: 1rem; display: none;">
                         <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="donation-section">
+            <div class="donation-box">
+                <h2>Support Our Service</h2>
+                <p>Help us maintain and improve this tool</p>
+                
+                <input type="number" 
+                       class="donation-input" 
+                       placeholder="Enter amount in INR"
+                       min="1"
+                       id="donationAmount">
+                
+                <button class="upload-btn" onclick="showDonationPrompt()">
+                    <i class="fas fa-heart"></i> Donate Now
+                </button>
+
+                <div class="upi-id">
+                    BHARATPE.8Y0Z0M5P0J89642@fbpe
+                    <button class="copy-btn" onclick="copyUPI()">
+                        <i class="fas fa-copy"></i> Copy
                     </button>
                 </div>
             </div>
@@ -278,8 +226,20 @@
 
         <div class="loader" id="loader">
             <div class="spinner"></div>
-            <p>Removing background...</p>
+            <p>Processing your image...</p>
         </div>
+
+        <footer>
+            <p>Data stored in GitHub: 
+                <a href="https://thenewera47.github.io/removebg/" target="_blank">
+                    thenewera47.github.io/removebg/
+                </a>
+            </p>
+            <p>
+                <a href="https://thenewera47.github.io/removebg/terms.html" target="_blank">Terms</a> | 
+                <a href="https://thenewera47.github.io/removebg/privacy.html" target="_blank">Privacy</a>
+            </p>
+        </footer>
     </div>
 
     <script>
@@ -287,28 +247,12 @@
         const API_URL = 'https://api.remove.bg/v1.0/removebg';
         let resultUrl = null;
 
-        // UPI Payment Handler
-        function showUPI(plan) {
-            if(plan === 'free') {
-                alert('Free plan activated! Start using the service');
-                return;
-            }
-
-            const upiId = 'BHARATPE.8Y0Z0M5P0J89642@fbpe';
-            const message = `Please send ₹${plan} to UPI ID:
-${upiId}
-
-After payment, email transaction ID to support@backgroundremover.com`;
-            
-            alert(message);
-        }
-
-        // File Input Handler
+        // File Upload Handling
         document.getElementById('fileInput').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
 
-            // Validate file
+            // Validation
             if (!['image/jpeg', 'image/png'].includes(file.type)) {
                 alert('Only JPG/PNG files allowed');
                 return;
@@ -328,7 +272,7 @@ After payment, email transaction ID to support@backgroundremover.com`;
 
             // Process image
             try {
-                document.getElementById('loader').style.display = 'flex';
+                showLoader(true);
                 const formData = new FormData();
                 formData.append('image_file', file);
                 
@@ -348,14 +292,38 @@ After payment, email transaction ID to support@backgroundremover.com`;
                 const blob = await response.blob();
                 resultUrl = URL.createObjectURL(blob);
                 document.getElementById('resultPreview').src = resultUrl;
-                document.getElementById('downloadBtn').style.display = 'inline-block';
+                document.getElementById('downloadBtn').style.display = 'block';
 
             } catch (error) {
                 alert('Error: ' + error.message);
             } finally {
-                document.getElementById('loader').style.display = 'none';
+                showLoader(false);
             }
         });
+
+        // Donation Functions
+        function showDonationPrompt() {
+            const amount = document.getElementById('donationAmount').value;
+            const minAmount = 1;
+
+            if (!amount || amount < minAmount) {
+                alert(`Please enter amount greater than ₹${minAmount}`);
+                return;
+            }
+
+            const message = `Payment Instructions:
+1. Send ₹${amount} to UPI ID: BHARATPE.8Y0Z0M5P0J89642@fbpe
+2. Email transaction ID to: dformulayt@gmail.com
+3. Include reference: https://thenewera47.github.io/removebg/`;
+            
+            alert(message);
+        }
+
+        function copyUPI() {
+            const upiId = 'BHARATPE.8Y0Z0M5P0J89642@fbpe';
+            navigator.clipboard.writeText(upiId);
+            alert('UPI ID copied to clipboard!');
+        }
 
         // Download Handler
         function downloadImage() {
@@ -367,6 +335,11 @@ After payment, email transaction ID to support@backgroundremover.com`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+        }
+
+        // Loader Control
+        function showLoader(show) {
+            document.getElementById('loader').style.display = show ? 'flex' : 'none';
         }
     </script>
 </body>
