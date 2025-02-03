@@ -183,6 +183,12 @@
             background: var(--primary);
         }
 
+        /* QR Code Centering */
+        #qr-code {
+            margin: 3rem auto;
+            text-align: center;
+        }
+
         /* Footer Section */
         footer {
             text-align: center;
@@ -384,40 +390,50 @@
                 body: formData
             })
                 .then(response => response.blob())
-                .then(blob => {
-                    const imageURL = URL.createObjectURL(blob);
-                    document.getElementById('resultPreview').src = imageURL;
+                .then(data => {
+                    const imageUrl = URL.createObjectURL(data);
+                    document.getElementById('resultPreview').src = imageUrl;
+                    document.getElementById('loader').style.display = 'none';
                 })
                 .catch(error => {
-                    alert('Error removing background: ' + error);
+                    console.error('Error:', error);
+                    alert('Error removing background');
+                    document.getElementById('loader').style.display = 'none';
                 });
+
+            // Show loading indicator
+            document.getElementById('loader').style.display = 'flex';
         }
 
-        // Donation Prompt (simulated)
+        // Function to display donation prompt
         function showDonationPrompt() {
-            const amount = document.getElementById('donationAmount').value;
-            if (amount) {
-                alert('Thank you for your donation of ₹' + amount);
+            const donationAmount = document.getElementById('donationAmount').value;
+            if (donationAmount && donationAmount > 0) {
+                alert('Thank you for your donation! Please proceed with the payment using the BharatPe UPI QR code.');
+                logDonation(donationAmount);
+                generateQRCode();
             } else {
-                alert('Please enter an amount to donate.');
+                alert('Please enter a valid amount to donate.');
             }
         }
 
-        // Generate UPI QR Code
-        function generateUPIQRCode() {
-            const upiLink = 'upi://pay?pa=BHARATPE.8Y0Z0M5P0J89642@fbpe&pn=Donation&mc=0000&tid=0000&url=https://donate.example.com&am=100&cu=INR';
-            const qrCodeContainer = document.getElementById('qr-code');
-            new QRCode(qrCodeContainer, {
-                text: upiLink,
-                width: 256,
-                height: 256
-            });
+        // Log Donation Transaction (Simulated for Frontend)
+        function logDonation(amount) {
+            console.log(`Donation of ₹${amount} recorded.`);
+            // Here, in a real-world case, you would send this data to your server/database.
         }
 
-        // Call the UPI QR code generator function
-        generateUPIQRCode();
+        // Generate BharatPe UPI QR Code for Donation
+        function generateQRCode() {
+            const qrCodeElement = document.getElementById('qr-code');
+            new QRCode(qrCodeElement, {
+                text: 'upi://pay?pa=bhartpe@upi&pn=Donate&mc=123456&tid=7890&amount=100.00&purpose=Donation',
+                width: 256,
+                height: 256,
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
     </script>
-
 </body>
 
 </html>
