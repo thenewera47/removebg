@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Background Remover Tool</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> <!-- QR Code Library -->
     <style>
         /* Global Styles */
         :root {
@@ -31,7 +31,6 @@
             color: var(--dark);
             font-size: 1rem;
             line-height: 1.6;
-            padding-bottom: 2rem;
         }
 
         /* Header Section */
@@ -65,7 +64,7 @@
         /* Hero Section */
         .hero-section {
             text-align: center;
-            padding: 4rem 1rem;
+            padding: 4rem 0;
             background: var(--white);
             margin-top: 1rem;
         }
@@ -86,7 +85,7 @@
         .upload-section {
             text-align: center;
             background: var(--white);
-            padding: 3rem 1rem;
+            padding: 3rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             margin: 3rem 0;
@@ -136,7 +135,7 @@
         /* Donation Section */
         .donation-section {
             background-color: var(--white);
-            padding: 3rem 1rem;
+            padding: 3rem;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
@@ -188,7 +187,6 @@
         #qr-code {
             margin: 3rem auto;
             text-align: center;
-            max-width: 90%; /* Make sure it fits on smaller screens */
         }
 
         /* Footer Section */
@@ -254,31 +252,6 @@
             }
         }
 
-        /* Mobile Optimization */
-        @media (max-width: 768px) {
-            .preview-area {
-                grid-template-columns: 1fr;
-            }
-
-            .upload-btn {
-                width: 100%;
-                font-size: 1.5rem;
-            }
-
-            .donation-input {
-                width: 90%;
-            }
-
-            .nav-item {
-                font-size: 1rem;
-                margin: 0 1rem;
-            }
-
-            footer .nav-menu li {
-                display: block;
-                margin: 1rem 0;
-            }
-        }
     </style>
 </head>
 
@@ -383,11 +356,56 @@
         function copyUPI() {
             const upiId = document.querySelector('.upi-id').textContent;
             navigator.clipboard.writeText(upiId).then(() => {
-                alert('UPI ID copied!');
+                alert('UPI ID copied to clipboard!');
             });
         }
 
-        // Function to show Donation Prompt and Generate QR Code
+        // Image Upload and Preview Logic
+        document.getElementById('fileInput').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('originalPreview').src = e.target.result;
+                    document.getElementById('resultPreview').src = e.target.result;
+                    document.getElementById('downloadBtn').style.display = 'block';
+
+                    // Call remove.bg API to remove background
+                    removeBackground(file);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Function to remove background using remove.bg API
+        function removeBackground(file) {
+            const formData = new FormData();
+            formData.append("image_file", file);
+
+            fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "X-Api-Key": API_KEY
+                },
+                body: formData
+            })
+                .then(response => response.blob())
+                .then(data => {
+                    const imageUrl = URL.createObjectURL(data);
+                    document.getElementById('resultPreview').src = imageUrl;
+                    document.getElementById('loader').style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error removing background');
+                    document.getElementById('loader').style.display = 'none';
+                });
+
+            // Show loading indicator
+            document.getElementById('loader').style.display = 'flex';
+        }
+
+        // Function to display donation prompt
         function showDonationPrompt() {
             const donationAmount = document.getElementById('donationAmount').value;
             if (donationAmount && donationAmount > 0) {
@@ -402,7 +420,7 @@
         // Log Donation Transaction (Simulated for Frontend)
         function logDonation(amount) {
             console.log(`Donation of ₹${amount} recorded.`);
-            // Simulating transaction logs for donation (can be sent to the server).
+            // Here, in a real-world case, you would send this data to your server/database.
         }
 
         // Generate BharatPe UPI QR Code for Donation
