@@ -58,6 +58,15 @@
         .comment-section input[type="file"] {
             margin-top: 10px;
         }
+        .qr-code {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+        }
+        #qr-img {
+            max-width: 200px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -71,7 +80,7 @@
             <p class="upi-id">BHARATPE.8Y0Z0M5P0J89642@fbpe</p>
             <button class="button" onclick="copyUPI()">Copy UPI ID</button>
             <br><br>
-            <button class="button" onclick="sendMoney()">Send Money</button>
+            <button class="button" onclick="showQRCode()">Show QR Code</button>
         </div>
         
         <div class="comment-section">
@@ -83,6 +92,12 @@
                 <br><br>
                 <button type="submit" class="button">Submit Comment</button>
             </form>
+        </div>
+
+        <!-- QR Code Section -->
+        <div class="qr-code" id="qr-section">
+            <h3>Scan to Donate</h3>
+            <img id="qr-img" src="" alt="QR Code">
         </div>
     </div>
 
@@ -99,10 +114,16 @@
             alert('UPI ID copied to clipboard!');
         }
 
-        // Function to handle the "Send Money" button (redirecting to UPI payment link)
-        function sendMoney() {
-            const upiLink = "upi://pay?pa=BHARATPE.8Y0Z0M5P0J89642@fbpe&pn=Donation&mc=1234&tid=5678&amount=10&currency=INR&url=https://www.thenewera47.com";
-            window.location.href = upiLink;
+        // Function to show QR Code
+        function showQRCode() {
+            const upiID = "BHARATPE.8Y0Z0M5P0J89642@fbpe"; // Your BharatPe UPI ID
+            const qrURL = `https://api.qrserver.com/v1/create-qr-code/?data=upi://pay?pa=${encodeURIComponent(upiID)}&pn=Donation&mc=1234&tid=5678&amount=10&currency=INR&url=https://www.thenewera47.com&size=200x200`;
+
+            // Show QR Code Section
+            document.getElementById('qr-section').style.display = 'block';
+
+            // Update the src attribute of the QR code image
+            document.getElementById('qr-img').src = qrURL;
         }
 
         // Form submission handling
