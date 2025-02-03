@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Background Remover</title>
+    <title>Background Remover Tool - Instant AI-Powered Background Removal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -39,28 +39,91 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--dark);
             margin-bottom: 1rem;
         }
 
+        /* Pricing Section */
+        .pricing-section {
+            padding: 3rem 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--accent);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .price-amount {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .price-features {
+            list-style: none;
+            margin: 1.5rem 0;
+            padding: 0;
+        }
+
+        .price-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .upi-btn {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upi-btn:hover {
+            background: var(--secondary);
+        }
+
+        /* Upload Section */
         .upload-section {
             border: 2px dashed #cbd5e1;
             border-radius: 15px;
             padding: 3rem;
             text-align: center;
             background: white;
-            transition: all 0.3s ease;
-        }
-
-        .upload-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1rem;
+            margin: 3rem 0;
             transition: all 0.3s ease;
         }
 
@@ -69,6 +132,7 @@
             gap: 2rem;
             margin-top: 2rem;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .image-box {
@@ -80,12 +144,18 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .image-box img {
-            width: 100%;
-            max-height: 500px;
-            object-fit: contain;
+        .download-btn {
+            background: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 1rem;
+            display: none;
         }
 
+        /* Loader and Notifications */
         .loader {
             display: none;
             position: fixed;
@@ -108,17 +178,6 @@
             animation: spin 1s linear infinite;
         }
 
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 2rem;
-            background: #ff4757;
-            color: white;
-            border-radius: 8px;
-            display: none;
-        }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -128,26 +187,92 @@
 <body>
     <div class="container">
         <header>
-            <h1>AI Background Remover</h1>
-            <p>Upload an image to remove background instantly</p>
+            <h1>Background Remover Tool</h1>
+            <p>Professional AI Background Removal in Seconds</p>
         </header>
 
+        <!-- Pricing Section -->
+        <section class="pricing-section">
+            <h2>Choose Your Plan</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="price-amount">₹0</div>
+                    <h3>Free Trial</h3>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> 5 Images/Month</li>
+                        <li><i class="fas fa-check"></i> 720px Resolution</li>
+                        <li><i class="fas fa-times"></i> Commercial Use</li>
+                    </ul>
+                    <button class="upi-btn" onclick="showUPI('free')">Start Free</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="price-amount">₹100</div>
+                    <h3>Basic Plan</h3>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> 50 Images/Month</li>
+                        <li><i class="fas fa-check"></i> 1080p Resolution</li>
+                        <li><i class="fas fa-check"></i> Personal Use</li>
+                    </ul>
+                    <button class="upi-btn" onclick="showUPI(100)">Buy Now</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="price-amount">₹299</div>
+                    <h3>Pro Plan</h3>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> 200 Images/Month</li>
+                        <li><i class="fas fa-check"></i> 4K Resolution</li>
+                        <li><i class="fas fa-check"></i> Commercial License</li>
+                    </ul>
+                    <button class="upi-btn" onclick="showUPI(299)">Buy Now</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="price-amount">₹599</div>
+                    <h3>Business Plan</h3>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> 500 Images/Month</li>
+                        <li><i class="fas fa-check"></i> Priority Processing</li>
+                        <li><i class="fas fa-check"></i> Team Access</li>
+                    </ul>
+                    <button class="upi-btn" onclick="showUPI(599)">Buy Now</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="price-amount">₹1199</div>
+                    <h3>Enterprise Plan</h3>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> Unlimited Images</li>
+                        <li><i class="fas fa-check"></i> 24/7 Support</li>
+                        <li><i class="fas fa-check"></i> API Access</li>
+                    </ul>
+                    <button class="upi-btn" onclick="showUPI(1199)">Contact Sales</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
         <div class="upload-section">
             <input type="file" id="fileInput" accept="image/*" hidden>
-            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+            <button class="upi-btn" onclick="document.getElementById('fileInput').click()" style="max-width: 300px;">
                 <i class="fas fa-upload"></i> Upload Image
             </button>
             <p style="margin-top: 1rem; color: #64748b;">Supports: JPG, PNG (Max 5MB)</p>
-        </div>
 
-        <div class="preview-area">
-            <div class="image-box">
-                <h3>Original</h3>
-                <img id="originalPreview">
-            </div>
-            <div class="image-box">
-                <h3>Result</h3>
-                <img id="resultPreview">
+            <div class="preview-area">
+                <div class="image-box">
+                    <h3>Original Image</h3>
+                    <img id="originalPreview" style="max-height: 400px;">
+                </div>
+                <div class="image-box">
+                    <h3>Result</h3>
+                    <img id="resultPreview" style="max-height: 400px;">
+                    <button class="download-btn" id="downloadBtn" onclick="downloadImage()">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -155,30 +280,42 @@
             <div class="spinner"></div>
             <p>Removing background...</p>
         </div>
-
-        <div class="notification" id="notification"></div>
     </div>
 
     <script>
         const API_KEY = 'DqU7D3xrGrNKwU84pqhov6tD';
         const API_URL = 'https://api.remove.bg/v1.0/removebg';
+        let resultUrl = null;
 
-        const fileInput = document.getElementById('fileInput');
-        const loader = document.getElementById('loader');
-        const notification = document.getElementById('notification');
+        // UPI Payment Handler
+        function showUPI(plan) {
+            if(plan === 'free') {
+                alert('Free plan activated! Start using the service');
+                return;
+            }
 
-        fileInput.addEventListener('change', async (e) => {
+            const upiId = 'BHARATPE.8Y0Z0M5P0J89642@fbpe';
+            const message = `Please send ₹${plan} to UPI ID:
+${upiId}
+
+After payment, email transaction ID to support@backgroundremover.com`;
+            
+            alert(message);
+        }
+
+        // File Input Handler
+        document.getElementById('fileInput').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
 
             // Validate file
             if (!['image/jpeg', 'image/png'].includes(file.type)) {
-                showNotification('Only JPG/PNG files allowed');
+                alert('Only JPG/PNG files allowed');
                 return;
             }
 
             if (file.size > 5 * 1024 * 1024) {
-                showNotification('File size exceeds 5MB limit');
+                alert('File size exceeds 5MB limit');
                 return;
             }
 
@@ -191,7 +328,7 @@
 
             // Process image
             try {
-                showLoader(true);
+                document.getElementById('loader').style.display = 'flex';
                 const formData = new FormData();
                 formData.append('image_file', file);
                 
@@ -209,33 +346,27 @@
                 }
 
                 const blob = await response.blob();
-                const url = URL.createObjectURL(blob);
-                document.getElementById('resultPreview').src = url;
-
-                // Create download link
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `background-removed-${Date.now()}.png`;
-                a.click();
-                URL.revokeObjectURL(url);
+                resultUrl = URL.createObjectURL(blob);
+                document.getElementById('resultPreview').src = resultUrl;
+                document.getElementById('downloadBtn').style.display = 'inline-block';
 
             } catch (error) {
-                showNotification(error.message);
+                alert('Error: ' + error.message);
             } finally {
-                showLoader(false);
+                document.getElementById('loader').style.display = 'none';
             }
         });
 
-        function showLoader(show) {
-            loader.style.display = show ? 'flex' : 'none';
-        }
-
-        function showNotification(message) {
-            notification.textContent = message;
-            notification.style.display = 'block';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
+        // Download Handler
+        function downloadImage() {
+            if (!resultUrl) return;
+            
+            const a = document.createElement('a');
+            a.href = resultUrl;
+            a.download = `background-removed-${Date.now()}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         }
     </script>
 </body>
