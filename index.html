@@ -200,35 +200,29 @@
             </div>
         </div>
 
-        <div class="container">
-        <div class="upload-card">
-            <h2>💖 Support Our Development</h2>
-            <div class="qr-container">
-                <button class="upload-btn" onclick="toggleQR()">
-                    <i class="fas fa-qrcode"></i> Show/Hide QR Code
+        <div class="donation-section">
+            <div class="donation-box">
+                <h2>Support Our Service</h2>
+                <p>Help us maintain and improve this tool</p>
+                
+                <input type="number" 
+                       class="donation-input" 
+                       placeholder="Enter amount in INR"
+                       min="1"
+                       id="donationAmount">
+                
+                <button class="upload-btn" onclick="showDonationPrompt()">
+                    <i class="fas fa-heart"></i> Donate Now
                 </button>
-                <img src="your-qr-code.png" alt="UPI QR Code" class="qr-code" id="qrCode">
-            </div>
-            <div class="upi-section">
-                <p>UPI ID: <strong>BHARATPE.8Y0Z0M5P0J89642@fbpe</strong></p>
-                <button class="upload-btn" onclick="copyUPI()">
-                    <i class="fas fa-copy"></i> Copy UPI ID
-                </button>
+
+                <div class="upi-id">
+                    BHARATPE.8Y0Z0M5P0J89642@fbpe
+                    <button class="copy-btn" onclick="copyUPI()">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-
-    <script>
-        function toggleQR() {
-            const qr = document.getElementById('qrCode');
-            qr.style.display = qr.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function copyUPI() {
-            navigator.clipboard.writeText('BHARATPE.8Y0Z0M5P0J89642@fbpe');
-            alert('UPI ID copied to clipboard!');
-        }
-    </script>
 
         <div class="loader" id="loader">
             <div class="spinner"></div>
