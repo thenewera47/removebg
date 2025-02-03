@@ -4,15 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Remover Tool</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> <!-- QR Code Library -->
     <style>
-        /* General Styles */
+        /* Global Styles */
         :root {
             --primary: #6366f1;
             --secondary: #4f46e5;
             --accent: #10b981;
             --dark: #1e293b;
             --light: #f8fafc;
+            --white: #ffffff;
+            --gray: #e5e7eb;
         }
 
         * {
@@ -23,36 +27,33 @@
         }
 
         body {
-            background: var(--light);
-            min-height: 100vh;
+            background-color: var(--light);
             color: var(--dark);
             font-size: 1rem;
             line-height: 1.6;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 2rem;
-        }
-
-        /* Header Navigation */
+        /* Header Section */
         header {
-            text-align: center;
-            padding: 2rem 0;
+            background-color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         nav {
             display: flex;
             justify-content: center;
-            gap: 2rem; /* Adds space between links */
+            gap: 3rem;
         }
 
         .nav-item {
             text-decoration: none;
             color: var(--dark);
             font-weight: 600;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             transition: color 0.3s ease;
         }
 
@@ -63,49 +64,52 @@
         /* Hero Section */
         .hero-section {
             text-align: center;
-            padding: 3rem 0;
+            padding: 4rem 0;
+            background: var(--white);
+            margin-top: 1rem;
         }
 
         .hero-title {
             font-size: 2.5rem;
+            font-weight: 700;
             color: var(--dark);
-            margin-bottom: 1rem;
         }
 
         .hero-description {
-            font-size: 1.1rem;
-            color: var(--dark);
-            margin-top: 1rem;
-            font-weight: 400;
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
         }
 
         /* Upload Section */
         .upload-section {
-            border: 2px dashed #cbd5e1;
-            border-radius: 15px;
-            padding: 3rem;
             text-align: center;
-            background: white;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             margin: 3rem 0;
-            transition: all 0.3s ease;
         }
 
         .upload-btn {
             background: var(--primary);
-            color: white;
+            color: var(--white);
             padding: 1rem 2rem;
             border: none;
             border-radius: 8px;
+            font-size: 1.2rem;
             cursor: pointer;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
         }
 
         .upload-btn:hover {
             background: var(--secondary);
         }
 
-        /* Image Preview Area */
+        .upload-btn i {
+            margin-right: 0.5rem;
+        }
+
         .preview-area {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -114,7 +118,7 @@
         }
 
         .image-box {
-            background: white;
+            background: var(--white);
             padding: 1rem;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -122,51 +126,91 @@
 
         .image-box img {
             width: 100%;
+            height: auto;
             max-height: 500px;
             object-fit: contain;
+            margin-bottom: 1rem;
         }
 
         /* Donation Section */
         .donation-section {
-            margin: 4rem 0;
+            background-color: var(--white);
+            padding: 3rem;
             text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 3rem;
         }
 
-        .donation-box {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            margin: 0 auto;
+        .donation-box h2 {
+            color: var(--dark);
+            font-size: 2rem;
+            margin-bottom: 1rem;
         }
 
         .donation-input {
-            width: 100%;
+            width: 80%;
             padding: 1rem;
             margin: 1rem 0;
-            border: 2px solid var(--primary);
             border-radius: 8px;
+            border: 2px solid var(--primary);
             font-size: 1.2rem;
             text-align: center;
+            color: var(--dark);
         }
 
         .upi-id {
-            margin: 1rem 0;
+            background: var(--gray);
             padding: 1rem;
-            background: #f1f5f9;
-            border-radius: 8px;
+            font-size: 1rem;
             font-family: monospace;
+            border-radius: 8px;
+            margin-top: 1.5rem;
         }
 
         .copy-btn {
             background: var(--accent);
-            color: white;
+            color: var(--white);
             border: none;
             padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
             margin-left: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+        }
+
+        /* Footer Section */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--white);
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer .nav-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer .nav-menu li {
+            display: inline;
+            margin: 0 1.5rem;
+        }
+
+        footer .nav-menu a {
+            color: var(--dark);
+            font-size: 1.1rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        footer .nav-menu a:hover {
+            color: var(--primary);
         }
 
         /* Loader */
@@ -177,7 +221,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.8);
             justify-content: center;
             align-items: center;
             z-index: 999;
@@ -202,64 +246,11 @@
             }
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #64748b;
-            margin-top: 2rem;
-        }
-
-        footer .nav-menu {
-            list-style: none;
-            padding: 0;
-        }
-
-        footer .nav-menu li {
-            display: inline;
-            margin: 0 1rem;
-        }
-
-        footer .nav-menu a {
-            color: var(--dark);
-            font-weight: 600;
-            font-size: 1.1rem;
-            text-decoration: none;
-        }
-
-        footer .nav-menu a:hover {
-            color: var(--primary);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .preview-area {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .upload-btn {
-                font-size: 1rem;
-                padding: 0.8rem 1.5rem;
-            }
-
-            .nav-item {
-                font-size: 1rem;
-                margin: 0 1rem;
-            }
-
-            .donation-box {
-                width: 90%;
-                padding: 1.5rem;
-            }
-        }
     </style>
 </head>
 
 <body>
+
     <!-- Header Section -->
     <header>
         <nav>
@@ -285,6 +276,7 @@
         </button>
         <p style="margin-top: 1rem; color: #64748b;">Supports: JPG, PNG (Max 5MB)</p>
 
+        <!-- Preview Area for Images -->
         <div class="preview-area">
             <div class="image-box">
                 <h3>Original Image</h3>
@@ -312,6 +304,8 @@
                 <i class="fas fa-heart"></i> Donate Now
             </button>
 
+            <div id="qr-code"></div> <!-- BharatPe UPI QR Code -->
+
             <div class="upi-id">
                 BHARATPE.8Y0Z0M5P0J89642@fbpe
                 <button class="copy-btn" onclick="copyUPI()">
@@ -327,7 +321,7 @@
         <p>Processing your image...</p>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer>
         <ul class="nav-menu">
             <li><a href="https://thenewera47.github.io/removebg/index.html" target="_blank">Home</a></li>
@@ -338,10 +332,92 @@
         </ul>
     </footer>
 
-    <!-- Script for Image Upload and Donation -->
+    <!-- JavaScript for Interactivity -->
     <script>
-        // Add your JavaScript code here for image upload and donation functionality
+        const API_URL = 'https://api.remove.bg/v1.0/removebg';
+        const API_KEY = 'DqU7D3xrGrNKwU84pqhov6tD';
+
+        // Function to download the image
+        function downloadImage() {
+            const resultImage = document.getElementById('resultPreview');
+            const link = document.createElement('a');
+            link.href = resultImage.src;
+            link.download = 'background_removed_image.png';
+            link.click();
+        }
+
+        // Function to Copy UPI ID
+        function copyUPI() {
+            const upiId = document.querySelector('.upi-id').textContent;
+            navigator.clipboard.writeText(upiId).then(() => {
+                alert('UPI ID copied to clipboard!');
+            });
+        }
+
+        // Image Upload and Preview Logic
+        document.getElementById('fileInput').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('originalPreview').src = e.target.result;
+                    document.getElementById('resultPreview').src = e.target.result;
+                    document.getElementById('downloadBtn').style.display = 'block';
+
+                    // Call remove.bg API to remove background
+                    removeBackground(file);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Function to remove background using remove.bg API
+        function removeBackground(file) {
+            const formData = new FormData();
+            formData.append("image_file", file);
+
+            fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "X-Api-Key": API_KEY
+                },
+                body: formData
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                    const imageURL = URL.createObjectURL(blob);
+                    document.getElementById('resultPreview').src = imageURL;
+                })
+                .catch(error => {
+                    alert('Error removing background: ' + error);
+                });
+        }
+
+        // Donation Prompt (simulated)
+        function showDonationPrompt() {
+            const amount = document.getElementById('donationAmount').value;
+            if (amount) {
+                alert('Thank you for your donation of ₹' + amount);
+            } else {
+                alert('Please enter an amount to donate.');
+            }
+        }
+
+        // Generate UPI QR Code
+        function generateUPIQRCode() {
+            const upiLink = 'upi://pay?pa=BHARATPE.8Y0Z0M5P0J89642@fbpe&pn=Donation&mc=0000&tid=0000&url=https://donate.example.com&am=100&cu=INR';
+            const qrCodeContainer = document.getElementById('qr-code');
+            new QRCode(qrCodeContainer, {
+                text: upiLink,
+                width: 256,
+                height: 256
+            });
+        }
+
+        // Call the UPI QR code generator function
+        generateUPIQRCode();
     </script>
+
 </body>
 
 </html>
