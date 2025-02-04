@@ -27,6 +27,13 @@
             color: var(--dark);
             font-size: 1rem;
             line-height: 1.6;
+            animation: backgroundFade 10s ease infinite;
+        }
+
+        @keyframes backgroundFade {
+            0% { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+            50% { background: linear-gradient(135deg, var(--secondary), var(--primary)); }
+            100% { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
         }
 
         header {
@@ -84,6 +91,34 @@
 
         a:hover {
             color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.9rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            p, ul {
+                font-size: 1rem;
+            }
+
+            .container {
+                width: 90%;
+            }
         }
     </style>
 </head>
