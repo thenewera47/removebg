@@ -22,7 +22,6 @@ body {
     line-height: 1.6;
     animation: backgroundFade 10s ease infinite;
     overflow-x: hidden;
-    padding: 0;
 }
 
 @keyframes backgroundFade {
