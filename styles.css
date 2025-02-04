@@ -16,10 +16,17 @@
 }
 
 body {
-    background-color: var(--light);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: var(--dark);
     font-size: 1rem;
     line-height: 1.6;
+    animation: backgroundFade 10s ease infinite;
+}
+
+@keyframes backgroundFade {
+    0% { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+    50% { background: linear-gradient(135deg, var(--secondary), var(--primary)); }
+    100% { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
 }
 
 header {
@@ -58,11 +65,13 @@ h1 {
     color: var(--primary);
     margin-bottom: 1.5rem;
     font-size: 2.5rem;
+    animation: fadeIn 2s ease-in-out;
 }
 
 h2 {
     color: var(--primary);
     margin-top: 1.5rem;
+    animation: fadeIn 2s ease-in-out;
 }
 
 p, ul {
@@ -77,4 +86,9 @@ a {
 
 a:hover {
     color: var(--secondary);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
