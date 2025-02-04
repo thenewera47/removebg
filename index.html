@@ -6,44 +6,7 @@
     <title>Background Remover Tool</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-        <title>Donation QR Code Generator</title>
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-<script>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fc;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-        }
-        h1 {
-            color: #4f46e5;
-        }
-        .input-container {
-            margin: 20px 0;
-        }
-        .donation-input {
-            padding: 10px;
-            font-size: 18px;
-            width: 200px;
-            border: 2px solid #4f46e5;
-            border-radius: 5px;
-        }
-        .donate-btn {
-            background-color: #4f46e5;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .donate-btn:hover {
-            background-color: #6366f1;
-        }
-        #qr-code {
-            margin-top: 30px;
-        }
+    <style>
         :root {
             --primary: #ff5733;
             --secondary: #33b5ff;
@@ -334,6 +297,12 @@
             </div>
         </div>
     </div>
+
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <p>Processing your image...</p>
+    </div>
+
     <footer>
         <ul class="nav-menu">
             <li><a href="https://thenewera47.github.io/removebg/index.html">Home</a></li>
@@ -343,11 +312,6 @@
             <li><a href="https://thenewera47.github.io/removebg/privacy.html">Privacy</a></li>
         </ul>
     </footer>
-        
-    <div class="loader" id="loader">
-        <div class="spinner"></div>
-        <p>Processing your image...</p>
-    </div>
 
     <script>
         const API_URL = 'https://api.remove.bg/v1.0/removebg';
@@ -406,16 +370,6 @@
             document.getElementById('loader').style.display = 'flex';
         }
 
-    <h1>Donate and Generate QR Code</h1>
-    <div class="input-container">
-        <input type="number" id="donationAmount" class="donation-input" placeholder="Enter Donation Amount (INR)" min="1">
-        <br><br>
-        <button class="donate-btn" onclick="showDonationPrompt()">Generate QR Code</button>
-    </div>
-
-    <div id="qr-code"></div>
-
-    <script>
         function showDonationPrompt() {
             const donationAmount = document.getElementById('donationAmount').value;
             if (donationAmount && donationAmount > 0) {
@@ -428,9 +382,8 @@
 
         function generateQRCode(amount) {
             const qrCodeElement = document.getElementById('qr-code');
-            qrCodeElement.innerHTML = ''; // Clear any previous QR codes
             new QRCode(qrCodeElement, {
-                text: `upi://pay?pa=BHARATPE.8Y0Z0M5P0J89642@fbpe&pn=Donate&mc=123456&tid=7890&amount=${amount}&purpose=Donation`,
+                text: `upi://pay?pa=bhartpe@upi&pn=Donate&mc=123456&tid=7890&amount=${amount}&purpose=Donation`,
                 width: 256,
                 height: 256,
                 correctLevel: QRCode.CorrectLevel.H
