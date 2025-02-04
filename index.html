@@ -352,7 +352,7 @@
 
             fetch(API_URL, {
                 method: "POST",
-                headers: { "X-Api-Key": API_KEY },
+                headers: { "X-Api-Key": DqU7D3xrGrNKwU84pqhov6tD },
                 body: formData
             })
                 .then(response => response.blob())
@@ -383,7 +383,7 @@
         function generateQRCode(amount) {
             const qrCodeElement = document.getElementById('qr-code');
             new QRCode(qrCodeElement, {
-                text: `upi://pay?pa=bhartpe@upi&pn=Donate&mc=123456&tid=7890&amount=${amount}&purpose=Donation`,
+                text: `upi://pay?pa=BHARATPE.8Y0Z0M5P0J89642@fbpe&pn=Donate&mc=123456&tid=7890&amount=${amount}&purpose=Donation`,
                 width: 256,
                 height: 256,
                 correctLevel: QRCode.CorrectLevel.H
