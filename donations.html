@@ -159,6 +159,43 @@
         footer .nav-menu a:hover {
             color: var(--primary);
         }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.9rem;
+            }
+
+            h4 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .upload-card {
+                padding: 2rem;
+            }
+
+            footer .nav-menu li {
+                margin: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h4 {
+                font-size: 1.7rem;
+            }
+
+            .upload-btn {
+                width: 100%;
+            }
+
+            footer .nav-menu li {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
     </style>
 </head>
 <body>
