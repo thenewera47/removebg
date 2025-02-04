@@ -24,10 +24,17 @@
         }
 
         body {
-            background-color: var(--light);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: var(--dark);
             font-size: 1rem;
             line-height: 1.6;
+            animation: backgroundFade 10s ease infinite;
+        }
+
+        @keyframes backgroundFade {
+            0% { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+            50% { background: linear-gradient(135deg, var(--secondary), var(--primary)); }
+            100% { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
         }
 
         header {
@@ -73,7 +80,7 @@
             max-width: 600px;
         }
 
-        h2 {
+        h3 {
             color: var(--primary);
             margin-bottom: 1.5rem;
             font-size: 2.5rem;
@@ -99,10 +106,17 @@
         }
 
         .qr-code {
-            margin-top: 1rem;
-            max-width: 100%;
-            height: auto;
-            display: none;
+            display: block;
+            margin: 30px auto;
+            width: 150px;
+            height: 150px;
+            animation: qrPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes qrPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
         .upi-section p {
