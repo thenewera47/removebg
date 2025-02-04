@@ -5,71 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary: #ff5733;
+            --secondary: #33b5ff;
+            --accent: #ffc107;
+            --dark: #333333;
+            --light: #f2f2f2;
+            --white: #ffffff;
+            --gray: #e0e0e0;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--white);
+            padding: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        header a:hover {
+            color: var(--primary);
+        }
+
         .container {
             width: 60%;
             margin: 50px auto;
-            background-color: white;
-            padding: 20px;
+            background-color: var(--white);
+            padding: 2rem;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            text-align: center;
         }
+
         h1 {
-            color: #4CAF50;
-            text-align: center;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
         }
+
         p {
-            text-align: center;
-            font-size: 18px;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
         }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         label {
             font-weight: bold;
+            color: var(--dark);
         }
+
         input, textarea {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--gray);
             border-radius: 5px;
             font-size: 16px;
         }
+
         button {
-            background-color: #4CAF50;
-            color: white;
+            background-color: var(--primary);
+            color: var(--white);
             padding: 10px 20px;
             border: none;
             cursor: pointer;
             border-radius: 5px;
             width: 100%;
             font-size: 18px;
+            transition: background-color 0.3s ease;
         }
+
         button:hover {
-            background-color: #45a049;
+            background-color: var(--secondary);
         }
+
         .contact-info {
             margin-top: 20px;
-            text-align: center;
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+
+        .contact-info a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-info a:hover {
+            color: var(--secondary);
         }
     </style>
 </head>
 <body>
-<!-- Header Section -->
     <header>
-        <a href="https://thenewera47.github.io/removebg/index.html" target="_blank" class="nav-item">Home</a>
-        <a href="https://thenewera47.github.io/removebg/contactus.html" target="_blank" class="nav-item">Contact</a>
-        <a href="https://thenewera47.github.io/removebg/donations.html" target="_blank" class="nav-item">Donate</a>
-        <a href="https://thenewera47.github.io/removebg/terms.html" target="_blank" class="nav-item">Terms</a>
-        <a href="https://thenewera47.github.io/removebg/privacy.html" target="_blank" class="nav-item">Privacy</a>
+        <a href="https://thenewera47.github.io/removebg/index.html" class="nav-item">Home</a>
+        <a href="https://thenewera47.github.io/removebg/contactus.html" class="nav-item">Contact</a>
+        <a href="https://thenewera47.github.io/removebg/donations.html" class="nav-item">Donate</a>
+        <a href="https://thenewera47.github.io/removebg/terms.html" class="nav-item">Terms</a>
+        <a href="https://thenewera47.github.io/removebg/privacy.html" class="nav-item">Privacy</a>
     </header>
+
     <div class="container">
         <h1>Contact Us</h1>
         <p>If you have any questions or feedback, feel free to reach out to us! We would love to hear from you.</p>
@@ -94,6 +156,8 @@
             <h3>Or Reach Us Directly:</h3>
             <p>Email: <a href="mailto:dformulayt@gmail.com">dformulayt@gmail.com</a></p>
         </div>
+    </div>
+
     <script>
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault();  // Prevent the form from submitting the traditional way
@@ -101,6 +165,5 @@
             document.getElementById('contact-form').reset();  // Reset form after submission
         });
     </script>
-    </div>
 </body>
 </html>
