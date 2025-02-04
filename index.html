@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Background Remover Tool</title>
+    <link rel="manifest" href="manifest.json"> <!-- PWA Manifest -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js" defer></script>
     <style>
+        /* Root and basic styling */
         :root {
             --primary: #ff5733;
             --secondary: #33b5ff;
@@ -16,228 +18,63 @@
             --white: #ffffff;
             --gray: #e0e0e0;
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: var(--light); color: var(--dark); font-size: 1rem; line-height: 1.6; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+        header { background-color: var(--white); padding: 1rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: center; gap: 2rem; }
+        .nav-item { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 1.1rem; transition: color 0.3s ease; }
+        .nav-item:hover { color: var(--primary); }
+
+        /* Hero section */
+        .hero-section { text-align: center; padding: 3rem 0; background: var(--primary); color: var(--white); }
+        .hero-title { font-size: 3rem; font-weight: 700; }
+        .hero-description { font-size: 1.2rem; margin-top: 0.5rem; }
+
+        /* Upload section */
+        .upload-section { text-align: center; background: var(--white); padding: 3rem; border-radius: 12px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); margin: 3rem 0; }
+        .upload-btn { background: var(--primary); color: var(--white); padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1.2rem; cursor: pointer; transition: background 0.3s ease; }
+        .upload-btn:hover { background: var(--secondary); }
+
+        .preview-area { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+        .image-box { background: var(--white); padding: 1rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        .image-box img { width: 100%; height: auto; max-height: 500px; object-fit: contain; }
+
+        /* Donation section */
+        .donation-section { background-color: var(--white); padding: 3rem; text-align: center; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); border-radius: 12px; margin-top: 3rem; }
+        .donation-box h2 { color: var(--dark); font-size: 2rem; margin-bottom: 1rem; }
+        .donation-input { width: 80%; padding: 1rem; margin: 1rem 0; border-radius: 8px; border: 2px solid var(--primary); font-size: 1.2rem; text-align: center; color: var(--dark); }
+        .upi-id { background: var(--gray); padding: 1rem; font-size: 1rem; font-family: monospace; border-radius: 8px; margin-top: 1.5rem; }
+        .copy-btn { background: var(--accent); color: var(--white); border: none; padding: 0.5rem 1rem; margin-left: 1rem; border-radius: 8px; cursor: pointer; transition: background 0.3s ease; }
+        .copy-btn:hover { background: var(--primary); }
+
+        #qr-code { margin: 3rem auto; text-align: center; }
+
+        /* Loader */
+        .loader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.8); justify-content: center; align-items: center; z-index: 999; }
+        .spinner { width: 50px; height: 50px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        footer { text-align: center; padding: 2rem; background-color: var(--white); box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); }
+        footer .nav-menu { list-style: none; padding: 0; }
+        footer .nav-menu li { display: inline; margin: 0 1.5rem; }
+        footer .nav-menu a { color: var(--dark); font-size: 1.1rem; text-decoration: none; font-weight: 600; transition: color 0.3s ease; }
+        footer .nav-menu a:hover { color: var(--primary); }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-description { font-size: 1rem; }
+            .upload-section { padding: 2rem; }
+            .preview-area { grid-template-columns: 1fr; }
         }
-
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        header {
-            background-color: var(--white);
-            padding: 1rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .nav-item {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        .nav-item:hover {
-            color: var(--primary);
-        }
-
-        .hero-section {
-            text-align: center;
-            padding: 3rem 0;
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 700;
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            margin-top: 0.5rem;
-        }
-
-        .upload-section {
-            text-align: center;
-            background: var(--white);
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin: 3rem 0;
-        }
-
-        .upload-btn {
-            background: var(--primary);
-            color: var(--white);
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .upload-btn:hover {
-            background: var(--secondary);
-        }
-
-        .preview-area {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .image-box {
-            background: var(--white);
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .image-box img {
-            width: 100%;
-            height: auto;
-            max-height: 500px;
-            object-fit: contain;
-        }
-
-        .donation-section {
-            background-color: var(--white);
-            padding: 3rem;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            margin-top: 3rem;
-        }
-
-        .donation-box h2 {
-            color: var(--dark);
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .donation-input {
-            width: 80%;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 8px;
-            border: 2px solid var(--primary);
-            font-size: 1.2rem;
-            text-align: center;
-            color: var(--dark);
-        }
-
-        .upi-id {
-            background: var(--gray);
-            padding: 1rem;
-            font-size: 1rem;
-            font-family: monospace;
-            border-radius: 8px;
-            margin-top: 1.5rem;
-        }
-
-        .copy-btn {
-            background: var(--accent);
-            color: var(--white);
-            border: none;
-            padding: 0.5rem 1rem;
-            margin-left: 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .copy-btn:hover {
-            background: var(--primary);
-        }
-
-        #qr-code {
-            margin: 3rem auto;
-            text-align: center;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: var(--white);
-            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        footer .nav-menu {
-            list-style: none;
-            padding: 0;
-        }
-
-        footer .nav-menu li {
-            display: inline;
-            margin: 0 1.5rem;
-        }
-
-        footer .nav-menu a {
-            color: var(--dark);
-            font-size: 1.1rem;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        footer .nav-menu a:hover {
-            color: var(--primary);
-        }
-
-        .loader {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+        @media screen and (max-width: 480px) {
+            .hero-title { font-size: 2rem; }
+            .upload-btn { font-size: 1rem; padding: 1rem; }
+            .donation-input { width: 90%; font-size: 1rem; }
         }
     </style>
 </head>
-
 <body>
     <header>
         <nav>
