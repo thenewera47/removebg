@@ -287,7 +287,9 @@
                 <i class="fas fa-heart"></i> Donate Now
             </button>
 
-            <div id="qr-code"></div>
+            <div id="qr-code">
+                <img src="https://thenewera47.github.io/removebg/your-qr-code.png" alt="BharatPe UPI QR Code" />
+            </div>
 
             <div class="upi-id">
                 BHARATPE.8Y0Z0M5P0J89642@fbpe
@@ -352,7 +354,7 @@
 
             fetch(API_URL, {
                 method: "POST",
-                headers: { "X-Api-Key": DqU7D3xrGrNKwU84pqhov6tD },
+                headers: { "X-Api-Key": API_KEY },
                 body: formData
             })
                 .then(response => response.blob())
@@ -374,20 +376,9 @@
             const donationAmount = document.getElementById('donationAmount').value;
             if (donationAmount && donationAmount > 0) {
                 alert('Thank you for your donation! Please proceed with the payment using the BharatPe UPI QR code.');
-                generateQRCode(donationAmount);
             } else {
                 alert('Please enter a valid amount to donate.');
             }
-        }
-
-        function generateQRCode(amount) {
-            const qrCodeElement = document.getElementById('qr-code');
-            new QRCode(qrCodeElement, {
-                text: `upi://pay?pa=BHARATPE.8Y0Z0M5P0J89642@fbpe&pn=Donate&mc=123456&tid=7890&amount=${amount}&purpose=Donation`,
-                width: 256,
-                height: 256,
-                correctLevel: QRCode.CorrectLevel.H
-            });
         }
     </script>
 </body>
